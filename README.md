@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/Platform-Windows-orange?style=flat&logo=windows&logoColor=white" alt="Platform">
 </p>
 
-<img src="https://github.com/ZzZ202ke/Winlocker/blob/main/Screenshot%202026-05-19%20195301.png" width="1500">
+<img src="https://github.com/ZzZ202ke/Winlocker/blob/main/image.png" width="1500">
 
 > ⚠️ **ВНИМАНИЕ**: Проект не создан строго в образовательных целях и для легитимного тестирования систем безопасности. Автор несет ответственности за вред, причиненный использованием данного кода.
 
