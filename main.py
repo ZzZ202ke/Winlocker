@@ -157,8 +157,8 @@ def window():
 
     root = tk.Tk()
     root.title("System")
-    # root.attributes("-fullscreen", True)
-    # root.attributes("-topmost", True)
+    root.attributes("-fullscreen", True)
+    root.attributes("-topmost", True)
     root.configure(bg=BLACK)
     root.config(cursor="pirate")
     root.protocol("WM_DELETE_WINDOW", lambda: None)
