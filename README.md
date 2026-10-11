@@ -46,9 +46,9 @@
 ```
 Winlocker/
 ├── main.py          # логика и интерфейс
-├── requirements.txt
+├── requirements.txt # неободимые версии библиотек 
 ├── image.png        # скриншот
-└── sound.mp3        # (пока не подключён)
+└── sound.mp3        # Воспроизведение звука
 ```
 
 ---
